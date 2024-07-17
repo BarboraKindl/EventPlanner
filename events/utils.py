@@ -1,4 +1,5 @@
 from django.utils import timezone
+from .models import Resource
 
 def is_event_upcoming(event):
     return event.start_time > timezone.now()
