@@ -49,7 +49,7 @@ Event Planner is a comprehensive web application built with Django that allows u
    ```
 
 3. Install the required packages:
-   ```
+   ```bash
    pip install -r requirements.txt
    ```
 
