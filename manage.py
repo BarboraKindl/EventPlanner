@@ -18,7 +18,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-    # Ensure migrations for users app
-    if len(sys.argv) > 1 and sys.argv[1] == 'migrate':
-        os.system('python manage.py makemigrations users')
