@@ -9,6 +9,16 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+            messages.success(request, f'Účet pro {username} byl úspěšně vytvořen. Nyní se můžete přihlásit.')
+            return redirect('login')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'registration/register.html', {'form': form})
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
             messages.success(request, f'Účet byl vytvořen pro {username}!')
             return redirect('login')
     else:
