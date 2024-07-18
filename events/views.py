@@ -1,12 +1,23 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Event, Location, Resource
 from .forms import EventForm, LocationForm, ResourceForm
 
 @login_required
 def event_list(request):
-    events = Event.objects.all()
+    event_list = Event.objects.all().order_by('-start_time')
+    paginator = Paginator(event_list, 10)  # Show 10 events per page
+
+    page = request.GET.get('page')
+    try:
+        events = paginator.page(page)
+    except PageNotAnInteger:
+        events = paginator.page(1)
+    except EmptyPage:
+        events = paginator.page(paginator.num_pages)
+
     return render(request, 'events/event_list.html', {'events': events})
 
 @login_required
